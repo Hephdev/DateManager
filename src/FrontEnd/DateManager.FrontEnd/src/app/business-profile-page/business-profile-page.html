@@ -1,0 +1,53 @@
+<div class="page-header">
+  <h1>Mi Negocio</h1>
+  <p>Configura la información pública de tu negocio.</p>
+</div>
+
+<div class="form-section">
+  <form (ngSubmit)="save()">
+    <div class="form-row">
+      <div class="field">
+        <label>Nombre del negocio</label>
+        <input class="input" [(ngModel)]="profile.businessName" name="businessName"
+               placeholder="Ej. Clínica Salud Total" required />
+      </div>
+      <div class="field">
+        <label>URL pública (slug)</label>
+        <input class="input" [(ngModel)]="profile.slug" name="slug"
+               placeholder="Ej. clinica-salud" required />
+        <small style="color: var(--text-muted)">Los clientes acceden en /book/{{ profile.slug }}</small>
+      </div>
+    </div>
+
+    <div class="form-row" style="margin-top: 16px">
+      <div class="field">
+        <label>Zona horaria</label>
+        <select class="input" [(ngModel)]="profile.timeZone" name="timeZone">
+          @for (tz of timezones; track tz) {
+            <option [value]="tz">{{ tz }}</option>
+          }
+        </select>
+      </div>
+      <div class="field" style="justify-content: flex-end">
+        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; margin-top: 24px">
+          <input type="checkbox" [(ngModel)]="profile.requiresApproval" name="requiresApproval" />
+          Requerir aprobación manual de citas
+        </label>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn primary" type="submit">Guardar cambios</button>
+      @if (saved()) {
+        <span style="color: var(--success); font-size: var(--text-sm)">✓ Cambios guardados</span>
+      }
+    </div>
+  </form>
+</div>
+
+<div class="form-section">
+  <p style="font-size: var(--text-sm); color: var(--text-muted)">
+    Página pública de reservas:
+    <strong style="color: var(--text)">/book/{{ profile.slug }}</strong>
+  </p>
+</div>
