@@ -1,0 +1,33 @@
+<div class="dashboard-layout">
+  <nav class="sidebar">
+    <div class="sidebar-brand">
+      <div class="datemanager-logo">
+        <div class="datemanager-mark"><span></span></div>
+        <div class="datemanager-word">DateManager</div>
+      </div>
+    </div>
+
+    <a class="sidebar-link" routerLink="appointments" routerLinkActive="active">
+      <DateManager-icon name="calendar" /> Citas
+    </a>
+    <a class="sidebar-link" routerLink="services" routerLinkActive="active">
+      <DateManager-icon name="service" /> Servicios
+    </a>
+    <a class="sidebar-link" routerLink="availability" routerLinkActive="active">
+      <DateManager-icon name="clock" /> Disponibilidad
+    </a>
+    <a class="sidebar-link" routerLink="profile" routerLinkActive="active">
+      <DateManager-icon name="business" /> Mi Negocio
+    </a>
+
+    <div class="sidebar-spacer"></div>
+
+    <button class="sidebar-link" (click)="logout()">
+      <DateManager-icon name="logout" /> Cerrar sesión
+    </button>
+  </nav>
+
+  <main class="dashboard-main">
+    <router-outlet />
+  </main>
+</div>
