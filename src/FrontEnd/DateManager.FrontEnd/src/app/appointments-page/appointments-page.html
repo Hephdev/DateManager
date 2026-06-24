@@ -1,0 +1,56 @@
+<div class="page-header">
+  <h1>Citas</h1>
+  <p>Gestiona las solicitudes y citas confirmadas de tu negocio.</p>
+</div>
+
+<div class="tabs">
+  <button class="tab" [class.active]="activeTab() === 'all'"       (click)="setTab('all')">Todas</button>
+  <button class="tab" [class.active]="activeTab() === 'pending'"   (click)="setTab('pending')">Pendientes</button>
+  <button class="tab" [class.active]="activeTab() === 'confirmed'" (click)="setTab('confirmed')">Confirmadas</button>
+</div>
+
+<div class="form-section">
+  <table>
+    <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>Servicio</th>
+        <th>Fecha y hora</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (a of filteredAppointments(); track a.id) {
+        <tr>
+          <td>
+            <div style="font-weight: 500">{{ a.clientName }}</div>
+            <div style="color: var(--text-muted); font-size: 12px">{{ a.clientEmail }}</div>
+          </td>
+          <td>{{ a.serviceName }}</td>
+          <td style="white-space: nowrap">{{ formatDate(a.startUtc) }}</td>
+          <td>
+            <span class="badge" [class]="statusClass(a.status)">{{ statusLabel(a.status) }}</span>
+          </td>
+          <td>
+            <div class="table-actions">
+              @if (a.status === 'Pending') {
+                <button class="btn primary sm" (click)="approve(a.id)">Aprobar</button>
+                <button class="btn danger sm"  (click)="decline(a.id)">Rechazar</button>
+              }
+              @if (a.status === 'Confirmed') {
+                <button class="btn secondary sm" (click)="cancel(a.id)">Cancelar</button>
+              }
+            </div>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 40px">
+            No hay citas en esta categoría.
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

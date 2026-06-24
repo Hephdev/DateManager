@@ -1,0 +1,91 @@
+<div class="login-bg">
+      <div class="login-card">
+        <div class="login-brand">
+          <div class="datemanager-logo">
+            <div class="datemanager-mark"><span></span></div>
+            <div class="datemanager-word">Date Manager</div>
+          </div>
+          <p class="login-tag">Sistema Integral de Gestión de Citas</p>
+        </div>
+
+        <form class="login-form" (ngSubmit)="submit()">
+          <div class="field">
+            <label>Usuario</label>
+            <div class="input-group">
+              <DateManager-icon name="user" />
+              <input class="input" [(ngModel)]="username" name="username"
+                     placeholder="Ej. lmpm" autocomplete="username" autofocus
+                     [class.invalid]="err && !username.trim()" />
+
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Contraseña</label>
+            <div class="input-group">
+              <DateManager-icon name="ext" />
+                <input class="input" [(ngModel)]="password" name="password"
+                         type="password" placeholder="••••••••" autocomplete="new-password"
+                         (input)="onPasswordChange()"
+                         [class.invalid]="err && !password.trim()" />
+            </div>
+            <div *ngIf="passwordStrength" class="password-strength">
+                <div class="strength-bar"
+                    [class.weak]="passwordStrength === 'weak'"
+                    [class.medium]="passwordStrength === 'medium'"
+                    [class.strong]="passwordStrength === 'strong'">
+                </div>
+                    <span class="strength-label" [class]="passwordStrength">
+                        {{ passwordStrength === 'weak'   ? 'Débil'   :
+                        passwordStrength === 'medium' ? 'Media'   : 'Fuerte' }}
+                    </span>
+            </div>
+        
+          </div>
+
+          <div class="field">
+            <label>Confirmar contraseña</label>
+            <div class="input-group">
+              <DateManager-icon name="ext" />
+              <input class="input" [(ngModel)]="confirmPassword" name="confirmPassword"
+                     type="password" placeholder="••••••••"
+                     (input)="validateSamePassword()"
+                     [class.invalid]="err && !confirmPassword.trim()" />
+            </div>
+          </div>
+
+          <div *ngIf="err" class="login-err">
+            <DateManager-icon name="alert" [size]="14" />
+            <span>{{ err }}</span>
+          </div>
+
+          <button class="btn primary lg block" type="submit" [disabled]="loading()">
+            <span *ngIf="loading()">Verificando…</span>
+            <ng-container *ngIf="!loading()">
+              Ingresar
+              <DateManager-icon name="arrow" />
+            </ng-container>
+          </button>
+        </form>
+
+        <div class="login-foot">
+          <span>¿Problemas para acceder?</span>
+          <a href="#">Contactar al administrador</a>
+        </div>
+      </div>
+
+      <div class="login-aside">
+        <div class="login-hero">
+          <div class="login-hero-inner">
+            <div class="datemanager-logo" style="transform:scale(2.5);margin-bottom:40px">
+              <div class="datemanager-mark"><span></span></div>
+              <div class="datemanager-word">DateManager</div>
+            </div>
+            <p style="color:var(--fg-muted);font-size:var(--text-md);max-width:280px;text-align:center;line-height:1.6">
+              Gestiona tu agenda de forma eficiente.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+

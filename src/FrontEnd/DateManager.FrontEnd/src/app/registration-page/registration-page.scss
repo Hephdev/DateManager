@@ -1,0 +1,15 @@
+.password-strength {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .strength-label {
+    font-size: 12px;
+    font-weight: 500;
+
+    &.weak   { color: #ef4444; }
+    &.medium { color: #eab308; }
+    &.strong { color: #22c55e; }
+  }
