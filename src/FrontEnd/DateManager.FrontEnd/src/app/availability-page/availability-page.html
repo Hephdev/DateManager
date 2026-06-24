@@ -1,0 +1,34 @@
+<div class="page-header">
+  <h1>Disponibilidad</h1>
+  <p>Define los horarios en que recibes citas cada semana.</p>
+</div>
+
+<div class="availability-grid">
+  @for (day of days; track day.dow) {
+    <div class="day-row">
+      <div class="day-label">{{ day.label }}</div>
+      <div class="day-windows">
+        @for (w of windowsForDay(day.dow); track w.id) {
+          <div class="window-row">
+            <input type="time" [(ngModel)]="w.startTime" [name]="'start-' + w.id" />
+            <span style="color: var(--text-muted); font-size: var(--text-sm)">hasta</span>
+            <input type="time" [(ngModel)]="w.endTime" [name]="'end-' + w.id" />
+            <button class="btn danger sm" type="button" (click)="deleteWindow(w.id)">✕</button>
+          </div>
+        } @empty {
+          <span style="font-size: var(--text-sm); color: var(--text-muted)">Sin horarios — cerrado este día</span>
+        }
+        <button class="btn secondary sm" type="button" (click)="addWindow(day.dow)">
+          + Agregar horario
+        </button>
+      </div>
+    </div>
+  }
+</div>
+
+<div style="margin-top: 24px; display: flex; align-items: center; gap: 12px">
+  <button class="btn primary" (click)="save()">Guardar disponibilidad</button>
+  @if (saved()) {
+    <span style="color: var(--success); font-size: var(--text-sm)">✓ Guardado</span>
+  }
+</div>
