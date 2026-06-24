@@ -1,0 +1,128 @@
+<div class="booking-layout">
+  <div class="booking-card">
+
+    <!-- Header with business name -->
+    <div class="booking-header">
+      <div class="datemanager-logo" style="justify-content: center; margin-bottom: 8px">
+        <div class="datemanager-mark"><span></span></div>
+        <div class="datemanager-word">{{ profile().businessName }}</div>
+      </div>
+      <p>Agenda tu cita en línea — sin necesidad de cuenta</p>
+    </div>
+
+    <!-- Step indicator (hidden on success) -->
+    @if (step() !== 'success') {
+      <div class="booking-steps">
+        <span class="step" [class.active]="stepNumber() >= 1">1. Servicio</span>
+        <span class="step" [class.active]="stepNumber() >= 2">2. Horario</span>
+        <span class="step" [class.active]="stepNumber() >= 3">3. Tus datos</span>
+      </div>
+    }
+
+    <!-- Step 1: Choose service -->
+    @if (step() === 'service') {
+      <h2 style="font-size: var(--text-md); font-weight: 600; margin-bottom: 16px">
+        ¿Qué servicio deseas agendar?
+      </h2>
+      <div class="service-list">
+        @for (s of services(); track s.id) {
+          <div class="service-option" (click)="selectService(s)">
+            <div class="service-name">{{ s.name }}</div>
+            <div class="service-duration">{{ s.durationMinutes }} minutos</div>
+          </div>
+        } @empty {
+          <p style="color: var(--text-muted); text-align: center; padding: 24px">
+            Este negocio no tiene servicios activos disponibles.
+          </p>
+        }
+      </div>
+    }
+
+    <!-- Step 2: Choose time slot -->
+    @if (step() === 'slot') {
+      <h2 style="font-size: var(--text-md); font-weight: 600; margin-bottom: 16px">
+        Elige un horario — <em style="font-weight:400">{{ selectedService()?.name }}</em>
+      </h2>
+
+      @if (slotGroups().length === 0) {
+        <p style="color: var(--text-muted); text-align: center; padding: 32px">
+          No hay horarios disponibles en los próximos 14 días.
+        </p>
+      }
+
+      @for (group of slotGroups(); track group.date) {
+        <div style="margin-bottom: 20px">
+          <div class="date-label">{{ formatDate(group.date) }}</div>
+          <div class="slot-grid">
+            @for (slot of group.slots; track slot.startTime) {
+              <button class="slot-btn" (click)="selectSlot(slot)">
+                {{ slot.startTime }}
+              </button>
+            }
+          </div>
+        </div>
+      }
+
+      <div class="booking-nav">
+        <button class="btn secondary" (click)="goBack()">← Volver</button>
+      </div>
+    }
+
+    <!-- Step 3: Client info form -->
+    @if (step() === 'form') {
+      <h2 style="font-size: var(--text-md); font-weight: 600; margin-bottom: 4px">
+        Tus datos de contacto
+      </h2>
+      <p style="font-size: var(--text-sm); color: var(--text-muted); margin-bottom: 20px">
+        {{ selectedService()?.name }}
+        · {{ selectedSlot()?.date }}
+        · {{ selectedSlot()?.startTime }}
+      </p>
+
+      <form (ngSubmit)="submit()">
+        <div style="display: flex; flex-direction: column; gap: 12px">
+          <div class="field">
+            <label>Nombre completo *</label>
+            <input class="input" [(ngModel)]="clientName" name="clientName"
+                   placeholder="Ej. Juan Pérez" required />
+          </div>
+          <div class="field">
+            <label>Correo electrónico *</label>
+            <input class="input" type="email" [(ngModel)]="clientEmail" name="clientEmail"
+                   placeholder="juan@ejemplo.com" required />
+          </div>
+          <div class="field">
+            <label>Teléfono (opcional)</label>
+            <input class="input" [(ngModel)]="clientPhone" name="clientPhone"
+                   placeholder="3001234567" />
+          </div>
+        </div>
+
+        @if (err) {
+          <div class="login-err" style="margin-top: 12px">{{ err }}</div>
+        }
+
+        <div class="booking-nav">
+          <button class="btn secondary" type="button" (click)="goBack()">← Volver</button>
+          <button class="btn primary" type="submit" [disabled]="loading()">
+            {{ loading() ? 'Enviando…' : 'Confirmar cita' }}
+          </button>
+        </div>
+      </form>
+    }
+
+    <!-- Step 4: Success -->
+    @if (step() === 'success') {
+      <div class="success-box">
+        <span class="success-icon material-icons">check_circle</span>
+        <h2>¡Cita agendada!</h2>
+        @if (profile().requiresApproval) {
+          <p>Tu solicitud fue enviada. El negocio la revisará pronto y recibirás un correo con la confirmación.</p>
+        } @else {
+          <p>Tu cita fue confirmada automáticamente. ¡Nos vemos pronto!</p>
+        }
+      </div>
+    }
+
+  </div>
+</div>
