@@ -1,1 +1,78 @@
-/* Styles live in src/styles.scss */
+/* ─── Buttons ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  transition: background .15s, opacity .15s;
+  line-height: 1;
+
+  &.primary         { background: var(--primary); color: #fff; }
+  &.primary:hover   { background: var(--primary-hover); }
+  &.secondary       { background: var(--border); color: var(--text); }
+  &.secondary:hover { background: #cbd5e1; }
+  &.danger          { background: #ef4444; color: #fff; }
+  &.danger:hover    { background: #dc2626; }
+  &.sm              { padding: 4px 10px; font-size: 12px; }
+  &:disabled        { opacity: .5; cursor: not-allowed; }
+}
+
+/* ─── Page header ─── */
+.page-header {
+  margin-bottom: 24px;
+  h1 { font-size: var(--text-xl); font-weight: 700; }
+  p  { color: var(--text-muted); font-size: var(--text-sm); margin-top: 4px; }
+}
+
+/* ─── Availability grid ─── */
+.availability-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.day-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.day-label {
+  width: 110px;
+  font-weight: 600;
+  font-size: var(--text-sm);
+  padding-top: 6px;
+  flex-shrink: 0;
+}
+
+.day-windows {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.window-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-sm);
+
+  input[type="time"] {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 6px 8px;
+    font-size: var(--text-sm);
+    outline: none;
+    &:focus { border-color: var(--primary); }
+  }
+}

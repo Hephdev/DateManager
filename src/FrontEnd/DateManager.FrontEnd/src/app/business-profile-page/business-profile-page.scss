@@ -1,1 +1,72 @@
-/* Styles live in src/styles.scss */
+/* ─── Buttons ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  transition: background .15s, opacity .15s;
+  line-height: 1;
+
+  &.primary         { background: var(--primary); color: #fff; }
+  &.primary:hover   { background: var(--primary-hover); }
+  &:disabled        { opacity: .5; cursor: not-allowed; }
+}
+
+/* ─── Form fields ─── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  label { font-size: var(--text-sm); font-weight: 500; }
+}
+
+input.input,
+select.input,
+textarea.input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  font-size: var(--text-sm);
+  color: var(--text);
+  background: #fff;
+  outline: none;
+  transition: border-color .15s;
+  &:focus        { border-color: var(--primary); }
+  &::placeholder { color: #cbd5e1; }
+}
+
+/* ─── Page header ─── */
+.page-header {
+  margin-bottom: 24px;
+  h1 { font-size: var(--text-xl); font-weight: 700; }
+  p  { color: var(--text-muted); font-size: var(--text-sm); margin-top: 4px; }
+}
+
+/* ─── Form section ─── */
+.form-section {
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
