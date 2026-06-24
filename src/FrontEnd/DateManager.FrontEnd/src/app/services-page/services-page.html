@@ -1,0 +1,73 @@
+<div class="page-header">
+  <h1>Servicios</h1>
+  <p>Gestiona los servicios que ofreces a tus clientes.</p>
+</div>
+
+@if (showForm()) {
+  <div class="form-section">
+    <h3 style="font-size: var(--text-sm); font-weight: 600; margin-bottom: 16px">
+      {{ editingService ? 'Editar servicio' : 'Nuevo servicio' }}
+    </h3>
+    <form (ngSubmit)="save()">
+      <div class="form-row">
+        <div class="field">
+          <label>Nombre</label>
+          <input class="input" [(ngModel)]="form.name" name="name"
+                 placeholder="Ej. Consulta General" required />
+        </div>
+        <div class="field">
+          <label>Duración (minutos)</label>
+          <input class="input" type="number" [(ngModel)]="form.durationMinutes"
+                 name="duration" min="5" step="5" required />
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn primary" type="submit">Guardar</button>
+        <button class="btn secondary" type="button" (click)="cancel()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+}
+
+<div class="form-section">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px">
+    <h3 style="font-size: var(--text-sm); font-weight: 600">Lista de servicios</h3>
+    <button class="btn primary sm" (click)="openAdd()">+ Agregar servicio</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Duración</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (s of svc.services(); track s.id) {
+        <tr>
+          <td>{{ s.name }}</td>
+          <td>{{ s.durationMinutes }} min</td>
+          <td>
+            <span class="badge" [class.confirmed]="s.isActive" [class.cancelled]="!s.isActive">
+              {{ s.isActive ? 'Activo' : 'Inactivo' }}
+            </span>
+          </td>
+          <td>
+            <div class="table-actions">
+              <button class="btn secondary sm" (click)="openEdit(s)">Editar</button>
+              <button class="btn danger sm" (click)="delete(s.id)">Eliminar</button>
+            </div>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="4" style="text-align: center; color: var(--text-muted); padding: 32px">
+            No hay servicios. Agrega uno con el botón de arriba.
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
