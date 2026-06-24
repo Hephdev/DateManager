@@ -30,7 +30,7 @@
           <td>{{ a.serviceName }}</td>
           <td style="white-space: nowrap">{{ formatDate(a.startUtc) }}</td>
           <td>
-            <span class="badge" [class]="statusClass(a.status)">{{ statusLabel(a.status) }}</span>
+            <span [class]="'badge ' + statusClass(a.status)">{{ statusLabel(a.status) }}</span>
           </td>
           <td>
             <div class="table-actions">
