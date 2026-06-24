@@ -1,4 +1,4 @@
-/* ─── Buttons ─── */
+/* BOTONES */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -22,7 +22,7 @@
   &:disabled        { opacity: .5; cursor: not-allowed; }
 }
 
-/* ─── Status badges ─── */
+/* INSIGNIAS DE ESTADO */
 .badge {
   display: inline-block;
   padding: 2px 10px;
@@ -38,14 +38,14 @@
   &.cancelled { background: #f1f5f9; color: #94a3b8; }
 }
 
-/* ─── Page header ─── */
+/* ENCABEZADO */
 .page-header {
   margin-bottom: 24px;
   h1 { font-size: var(--text-xl); font-weight: 700; }
   p  { color: var(--text-muted); font-size: var(--text-sm); margin-top: 4px; }
 }
 
-/* ─── Form section ─── */
+/* SECCIÓN DE FORMULARIO */
 .form-section {
   background: var(--card-bg);
   border-radius: var(--radius-lg);
@@ -54,7 +54,7 @@
   margin-bottom: 24px;
 }
 
-/* ─── Tabs ─── */
+/* PESTAÑAS */
 .tabs {
   display: flex;
   gap: 4px;
@@ -78,7 +78,7 @@
   &:hover:not(.active)  { color: var(--text); }
 }
 
-/* ─── Table ─── */
+/* TABLA */
 table {
   width: 100%;
   border-collapse: collapse;

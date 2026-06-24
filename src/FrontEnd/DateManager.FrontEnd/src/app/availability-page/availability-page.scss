@@ -1,4 +1,4 @@
-/* ─── Buttons ─── */
+/* BOTONES */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -22,14 +22,14 @@
   &:disabled        { opacity: .5; cursor: not-allowed; }
 }
 
-/* ─── Page header ─── */
+/* ENCABEZADO */
 .page-header {
   margin-bottom: 24px;
   h1 { font-size: var(--text-xl); font-weight: 700; }
   p  { color: var(--text-muted); font-size: var(--text-sm); margin-top: 4px; }
 }
 
-/* ─── Availability grid ─── */
+/* GRILLA DE DISPONIBILIDAD */
 .availability-grid {
   display: flex;
   flex-direction: column;
