@@ -27,7 +27,7 @@ export interface Appointment {
   clientName: string;
   clientEmail: string;
   clientPhone: string;
-  startUtc: string; // ISO 8601
+  startUtc: string; // regla ISO 8601
   endUtc: string;
   status: 'Pending' | 'Confirmed' | 'Declined' | 'Cancelled';
 }

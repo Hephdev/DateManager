@@ -55,3 +55,16 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# ─── Herramientas, IDEs y configuración local ────────────────────────────────
+# Carpetas dot-file (archivos/carpetas que comienzan con punto)
+.claude/
+.vscode/
+.superpowers/
+.idea/
+.history/
+.env
+.env.*
+
+# ─── Rutas específicas del repositorio ───────────────────────────────────────
+/docs/

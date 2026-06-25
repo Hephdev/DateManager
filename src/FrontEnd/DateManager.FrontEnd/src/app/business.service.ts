@@ -29,14 +29,14 @@ export class BusinessService {
   appointments = signal<Appointment[]>([
     {
       id: 1, serviceId: 1, serviceName: 'Consulta General',
-      clientName: 'Juan Pérez', clientEmail: 'juan@example.com', clientPhone: '3001234567',
+      clientName: 'Juan Pérez', clientEmail: 'juan@ejemplo.com', clientPhone: '3001234567',
       startUtc: new Date(Date.now() + 86400000).toISOString(),
       endUtc:   new Date(Date.now() + 86400000 + 1800000).toISOString(),
       status: 'Pending',
     },
     {
       id: 2, serviceId: 2, serviceName: 'Revisión Completa',
-      clientName: 'María López', clientEmail: 'maria@example.com', clientPhone: '3109876543',
+      clientName: 'María López', clientEmail: 'maria@ejemplo.com', clientPhone: '3109876543',
       startUtc: new Date(Date.now() + 172800000).toISOString(),
       endUtc:   new Date(Date.now() + 172800000 + 3600000).toISOString(),
       status: 'Confirmed',
