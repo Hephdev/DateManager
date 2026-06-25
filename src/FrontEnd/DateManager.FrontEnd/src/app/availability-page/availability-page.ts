@@ -23,7 +23,7 @@ export class AvailabilityPage {
   private svc = inject(BusinessService);
   days = DAYS;
 
-  // Local copy: user edits this, then saves all at once
+  // Copia local: el usuario edita aquí y guarda todo de una vez
   localWindows: AvailabilityWindow[] = [...this.svc.windows()];
   saved = signal(false);
   private tmpId = 1000;

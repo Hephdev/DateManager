@@ -32,7 +32,7 @@ export class BookingPage {
     return s ? this.svc.getSlots(s.id, 14) : [];
   });
 
-  // Group slots by date for display: [{ date: 'YYYY-MM-DD', slots: Slot[] }]
+  // Agrupa los slots por fecha para mostrar: [{ date: 'YYYY-MM-DD', slots: Slot[] }]
   slotGroups = computed(() => {
     const grouped: Record<string, Slot[]> = {};
     for (const slot of this.slots()) {

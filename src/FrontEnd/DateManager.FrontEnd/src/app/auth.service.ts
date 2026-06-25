@@ -4,12 +4,12 @@ import { Injectable, signal } from '@angular/core';
 export class AuthService {
   private readonly TOKEN_KEY = 'dm_token';
 
-  // Signal: true when a token exists in localStorage
+  // Signal: Se mantiene el estado de inicio de sesión y se actualiza automáticamente cuando cambia
   isLoggedIn = signal(!!localStorage.getItem(this.TOKEN_KEY));
 
   login(email: string, password: string): boolean {
     if (!email.trim() || !password.trim()) return false;
-    // Mock: accept any non-empty credentials
+    // Mock: es decir que no hay un backend real, solo se simula el inicio de sesión
     localStorage.setItem(this.TOKEN_KEY, 'mock-jwt-token');
     this.isLoggedIn.set(true);
     return true;

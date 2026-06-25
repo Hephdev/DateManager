@@ -22,7 +22,7 @@ const TIMEZONES = [
 export class BusinessProfilePage {
   private svc = inject(BusinessService);
 
-  // Local copy for editing — avoids mutating the signal directly while typing
+  // Copia local para edición — evita mutar la señal directamente al escribir
   profile: BusinessProfile = { ...this.svc.profile() };
   timezones = TIMEZONES;
   saved = signal(false);

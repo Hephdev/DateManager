@@ -45,12 +45,12 @@ export class BusinessService {
 
   private nextId = 100;
 
-  // ── Profile ──────────────────────────────────────────────
+  // ── Perfil ───────────────────────────────────────────────
   updateProfile(p: BusinessProfile): void {
     this.profile.set({ ...p });
   }
 
-  // ── Services ─────────────────────────────────────────────
+  // ── Servicios ────────────────────────────────────────────
   addService(s: Omit<Service, 'id'>): void {
     this.services.update(list => [...list, { ...s, id: this.nextId++ }]);
   }
@@ -63,7 +63,7 @@ export class BusinessService {
     this.services.update(list => list.filter(x => x.id !== id));
   }
 
-  // ── Availability ─────────────────────────────────────────
+  // ── Disponibilidad ───────────────────────────────────────
   addWindow(w: Omit<AvailabilityWindow, 'id'>): void {
     this.windows.update(list => [...list, { ...w, id: this.nextId++ }]);
   }
@@ -76,7 +76,7 @@ export class BusinessService {
     this.windows.update(list => list.filter(x => x.id !== id));
   }
 
-  // ── Appointments ──────────────────────────────────────────
+  // ── Citas ────────────────────────────────────────────────
   approveAppointment(id: number): void {
     this.appointments.update(list =>
       list.map(a => a.id === id ? { ...a, status: 'Confirmed' as const } : a));
@@ -96,8 +96,8 @@ export class BusinessService {
     this.appointments.update(list => [...list, { ...booking, id: this.nextId++ }]);
   }
 
-  // ── Slot generation ───────────────────────────────────────
-  // Returns available time slots for a service over the next `days` days.
+  // ── Generación de slots ───────────────────────────────────
+  // Retorna los slots de tiempo disponibles para un servicio en los próximos `days` días.
   getSlots(serviceId: number, days = 14): Slot[] {
     const service = this.services().find(s => s.id === serviceId);
     if (!service) return [];
@@ -123,7 +123,7 @@ export class BusinessService {
           const endM = sh * 60 + sm + service.durationMinutes;
           const endStr = `${String(Math.floor(endM / 60)).padStart(2, '0')}:${String(endM % 60).padStart(2, '0')}`;
 
-          // Skip slots that overlap existing Pending or Confirmed appointments
+          // Omite slots que se superpongan con citas Pendientes o Confirmadas existentes
           const slotStart = new Date(`${dateStr}T${startStr}:00Z`).getTime();
           const slotEnd   = new Date(`${dateStr}T${endStr}:00Z`).getTime();
           const hasConflict = this.appointments().some(a => {

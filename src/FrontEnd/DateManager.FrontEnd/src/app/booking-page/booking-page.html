@@ -1,7 +1,7 @@
 <div class="booking-layout">
   <div class="booking-card">
 
-    <!-- Header with business name -->
+    <!-- Encabezado con el nombre del negocio -->
     <div class="booking-header">
       <div class="datemanager-logo" style="justify-content: center; margin-bottom: 8px">
         <div class="datemanager-mark"><span></span></div>
@@ -10,7 +10,7 @@
       <p>Agenda tu cita en línea — sin necesidad de cuenta</p>
     </div>
 
-    <!-- Step indicator (hidden on success) -->
+    <!-- Indicador de pasos (oculto en el paso de éxito) -->
     @if (step() !== 'success') {
       <div class="booking-steps">
         <span class="step" [class.active]="stepNumber() >= 1">1. Servicio</span>
@@ -19,7 +19,7 @@
       </div>
     }
 
-    <!-- Step 1: Choose service -->
+    <!-- Paso 1: Elegir servicio -->
     @if (step() === 'service') {
       <h2 style="font-size: var(--text-md); font-weight: 600; margin-bottom: 16px">
         ¿Qué servicio deseas agendar?
@@ -38,7 +38,7 @@
       </div>
     }
 
-    <!-- Step 2: Choose time slot -->
+    <!-- Paso 2: Elegir horario -->
     @if (step() === 'slot') {
       <h2 style="font-size: var(--text-md); font-weight: 600; margin-bottom: 16px">
         Elige un horario — <em style="font-weight:400">{{ selectedService()?.name }}</em>
@@ -68,7 +68,7 @@
       </div>
     }
 
-    <!-- Step 3: Client info form -->
+    <!-- Paso 3: Formulario de datos del cliente -->
     @if (step() === 'form') {
       <h2 style="font-size: var(--text-md); font-weight: 600; margin-bottom: 4px">
         Tus datos de contacto
@@ -111,7 +111,7 @@
       </form>
     }
 
-    <!-- Step 4: Success -->
+    <!-- Paso 4: Confirmación -->
     @if (step() === 'success') {
       <div class="success-box">
         <span class="success-icon material-icons">check_circle</span>
