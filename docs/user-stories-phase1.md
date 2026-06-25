@@ -1,7 +1,5 @@
 # DateManager — Phase 1 User Stories
 
-Derived from
-[`docs/superpowers/specs/2026-06-12-appointment-booking-phase1-design.md`](superpowers/specs/2026-06-12-appointment-booking-phase1-design.md).
 Each story is intended to become its own GitHub issue. Stories are grouped
 into epics; within an epic, earlier stories are generally prerequisites for
 later ones.
