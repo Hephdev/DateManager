@@ -4,11 +4,7 @@ A multi-tenant appointment-booking SaaS (a "mini Calendly"). Each business
 owner manages their own availability and services; clients book appointments
 via a public booking page without needing an account.
 
-## Status
 
-Phase 1 (MVP) is in design/planning. See:
-- [Phase 1 design doc](docs/superpowers/specs/2026-06-12-appointment-booking-phase1-design.md)
-- [Phase 1 user stories](docs/user-stories-phase1.md) — tracked as [GitHub issues](https://github.com/Hephdev/DateManager/issues)
 
 ## Architecture & Tech Stack
 
@@ -27,9 +23,10 @@ Phase 1 (MVP) is in design/planning. See:
 
 ```
 src/
-  backend/   # ASP.NET Core Web API
-  frontend/  # Angular SPA
-docs/        # design docs and user stories
+  backend/           # ASP.NET Core Web API (not yet scaffolded)
+  FrontEnd/          # Angular SPA (DateManager.FrontEnd)
+  SCRIPTS/           # SQL Server scripts: schema, seed data, stored procedures
+docs/                # design docs and user stories
 ```
 
 ## Core Concepts
@@ -53,11 +50,42 @@ docs/        # design docs and user stories
 - **BusinessProfile** (1:1 with owner) — `BusinessName`, unique `Slug`,
   `TimeZone`, `RequiresApproval`
 - **Service** (many per business) — `Name`, `DurationMinutes`, `IsActive`
-- **AvailabilityWindow** (many per business) — `DayOfWeek`, `StartTime`,
+- **AvailabilityWindow** (many per service) — `DayOfWeek`, `StartTime`,
   `EndTime`; a day may have zero, one, or multiple windows
-- **Appointment** — `ServiceId`, client name/email/phone, `StartUtc`/`EndUtc`,
-  `Status` (`Pending` / `Confirmed` / `Declined` / `Cancelled`),
-  `ReminderSentAt`
+- **Cliente** — `ClientName`, `ClientLastName`, `PhoneNumber`, `Email`; the
+  person booking an appointment
+- **Appointment** — `ServiceId` (FK → Service), `ClientId` (FK → Cliente),
+  `StartUtc`/`EndUtc`, `Status` (`Pending` / `Confirmed` / `Declined` /
+  `Cancelled`), `ReminderSentAt`
+
+All primary keys are `UNIQUEIDENTIFIER` (`NEWSEQUENTIALID()` default). See
+[Database](#database) for where this schema is defined and how to stand it up.
+
+## Database
+
+The SQL Server schema, seed data, and stored procedures live in
+`src/SCRIPTS/`, applied in this order:
+
+1. **`Creacion de tablas y fk.sql`** — creates `Cliente`, `BusinessProfile`,
+   `Service`, `Appointment`, `AvailabilityWindow` and their foreign keys
+   (`Appointment.serviceid` → `Service`, `Appointment.clientid` → `Cliente`,
+   `AvailabilityWindow.serviceid` → `Service`).
+2. **`Insercion de datos.sql`** — DML script that seeds each table with 10
+   sample rows for local development/testing.
+3. **`creracion sps.sql`** — stored procedures used by the backend:
+   - `sp_ReporteCitasPorCliente` (`@clientId`, `@fechaInicio`, `@fechaFin`) —
+     report: a client's appointments in a date range plus aggregate totals.
+   - `sp_ReporteOcupacionPorServicio` (`@serviceId`, `@fechaInicio`,
+     `@fechaFin`) — report: booked vs. available minutes and occupancy % for
+     a service in a date range.
+   - `sp_Cliente_Insertar`, `sp_Cliente_Actualizar`, `sp_Cliente_Eliminar` —
+     CRUD operations over `Cliente`.
+4. **`pruebas sp.sql`** — example `EXEC` calls for each stored procedure,
+   useful as a manual smoke test after seeding data.
+
+These scripts are run manually against SQL Server (SSMS or `sqlcmd`); there
+is no migration tool wired up yet, since the backend project itself hasn't
+been scaffolded (see [Getting Started](#getting-started)).
 
 ## API Overview
 
